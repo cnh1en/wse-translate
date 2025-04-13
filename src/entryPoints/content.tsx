@@ -6,7 +6,7 @@ import contentCSS from '@/components/content/content.css?inline';
 
 function createShadow() {
   // Inside content page html, will create a custom entry tag <ext-boilerplate-entry>
-  const sidebarTagName = 'ext-boilerplate-entry';
+  const sidebarTagName = 'wse-translator-entry';
   const sidebarElement = document.createElement(sidebarTagName);
   document.documentElement.appendChild(sidebarElement);
 
