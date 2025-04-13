@@ -23,8 +23,6 @@ export default function renderRoot(rootElement: HTMLElement | ShadowRoot, rootNo
   const isContent = rootElement instanceof ShadowRoot;
 
   createRoot(rootContainer).render(
-    <SettingsProvider defaultTheme="light" shadowRoot={isContent ? rootElement : undefined}>
-      {rootNode}
-    </SettingsProvider>,
+    <SettingsProvider shadowRoot={isContent ? rootElement : undefined}>{rootNode}</SettingsProvider>,
   );
 }

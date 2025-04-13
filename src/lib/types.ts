@@ -15,4 +15,6 @@ export const GENERAL_SETTINGS_KEY = 'generalSettings';
 export interface GeneralSettings {
   theme: Theme;
   hide_sidebar_button: boolean;
+  sourceLanguage: string;
+  targetLanguage: string;
 }

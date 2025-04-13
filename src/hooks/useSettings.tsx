@@ -16,8 +16,10 @@ type SettingsProviderState = {
 
 const initialSettingsState: SettingsProviderState = {
   settings: {
-    theme: 'light',
+    theme: 'dark',
     hide_sidebar_button: false,
+    sourceLanguage: 'en',
+    targetLanguage: 'vi',
   },
   setSettings: () => null,
 };
