@@ -31,7 +31,6 @@ export default function Popup() {
             </Button>
           </div>
         </div>
-
         {/* Content */}
         <div className="ext-flex ext-flex-col ext-gap-3 ext-flex-1 ext-overflow-y-auto ext-my-4">
           <CardSwitch
@@ -41,7 +40,6 @@ export default function Popup() {
             subtitle={'Switch between dark mode applied to all extension modules.'}
           />
         </div>
-
         {/* FOOTER */}
         <div className="ext-flex">
           <div className="ext-flex ext-flex-row ext-justify-between ext-items-center ext-w-full">

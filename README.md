@@ -54,7 +54,7 @@ https://github.com/user-attachments/assets/825363db-14a9-402f-b7ab-9b7ddd4a7e0e
   ```
   - Runs vite in development mood HMR enabled
   - Default port is `5173`.
-  - For popup `http://localhost:5173/popup.htm`
+  - For popup `http://localhost:5173/popup.html`
   - For options `http://localhost:5173/options.html`
   - For content script, open any web page.
   - Auto reload works for all `popup`, `content` and `options`.

@@ -1,1 +1,1 @@
-export const ROOT_CONTAINER_ID = '__extRoot__';
+export const ROOT_CONTAINER_ID = '__wse__';

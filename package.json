@@ -12,13 +12,13 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:test": "yarn lint && yarn prettier && yarn build && yarn e2e",
+    "build:test": "pnpm lint && pnpm prettier && pnpm build && pnpm e2e",
     "build:watch": "vite build --watch",
     "lint": "eslint .",
     "prettier": "prettier --write src tests",
     "preview": "vite preview",
     "postbuild": "node ./scripts/post-build.js",
-    "test": "yarn build && yarn e2e",
+    "test": "pnpm build && pnpm e2e",
     "e2e": "npx playwright test",
     "e2e:report": "npx playwright test && npx playwright show-report",
     "prepare": "husky"
