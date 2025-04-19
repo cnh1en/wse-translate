@@ -1,34 +1,18 @@
-import Content from '@/components/content';
-import renderRoot from '@/entryPoints/render/render-root.tsx';
+import SubtitleTranslator from '@/services/subtitle-translator';
+import { useEffect } from 'react';
+import renderRoot from './render/render-root';
 
-import mainCSS from '@/entryPoints/main.css?inline';
-import contentCSS from '@/components/content/content.css?inline';
+export default function Content() {
+  useEffect(() => {
+    const translator = new SubtitleTranslator();
+    translator.startObserving();
 
-function createShadow() {
-  // Inside content page html, will create a custom entry tag <ext-boilerplate-entry>
-  const sidebarTagName = 'wse-translator-entry';
-  const sidebarElement = document.createElement(sidebarTagName);
-  document.documentElement.appendChild(sidebarElement);
+    return () => {
+      translator.stopObserving();
+    };
+  }, []);
 
-  const shadowRoot = sidebarElement.attachShadow({ mode: 'open' });
-  shadowRoot.adoptedStyleSheets = [];
-
-  if ('adoptedStyleSheets' in Document.prototype) {
-    [mainCSS, contentCSS].forEach((styleSheetContent) => {
-      const styleSheet = new CSSStyleSheet();
-      styleSheet.replaceSync(styleSheetContent);
-      shadowRoot.adoptedStyleSheets.push(styleSheet);
-    });
-  } else {
-    // Fallback: Use <style> tags for older browsers
-    [mainCSS, contentCSS].forEach((styleSheetContent) => {
-      const styleElement = document.createElement('style');
-      styleElement.textContent = styleSheetContent;
-      shadowRoot.appendChild(styleElement);
-    });
-  }
-
-  return shadowRoot;
+  return <></>;
 }
 
-renderRoot(createShadow(), <Content />);
+renderRoot(document.body, <Content />);
