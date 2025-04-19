@@ -17,4 +17,8 @@ export interface GeneralSettings {
   hide_sidebar_button: boolean;
   sourceLanguage: string;
   targetLanguage: string;
+  fontSize: number;
+  opacity: number;
+  fontColor: string;
+  backgroundColor: string;
 }

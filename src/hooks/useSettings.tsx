@@ -14,12 +14,27 @@ type SettingsProviderState = {
   setSettings: (updatedSettings: Partial<GeneralSettings>) => void;
 };
 
+export const LANGUAGES = [
+  { code: 'en', name: 'English' },
+  { code: 'vi', name: 'Vietnamese' },
+  { code: 'ja', name: 'Japanese' },
+  { code: 'ko', name: 'Korean' },
+  { code: 'zh', name: 'Chinese' },
+  { code: 'fr', name: 'French' },
+  { code: 'de', name: 'German' },
+  { code: 'es', name: 'Spanish' },
+];
+
 const initialSettingsState: SettingsProviderState = {
   settings: {
     theme: 'dark',
     hide_sidebar_button: false,
     sourceLanguage: 'en',
     targetLanguage: 'vi',
+    fontSize: 12,
+    opacity: 100,
+    fontColor: '#000000',
+    backgroundColor: '#ffffff',
   },
   setSettings: () => null,
 };
