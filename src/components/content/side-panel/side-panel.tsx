@@ -3,7 +3,7 @@ import { ChevronsRight, CircleHelp, CircleX, Settings } from 'lucide-react';
 
 import { Button } from '@/components/ui/button.tsx';
 import CardSwitch from '@/components/ui/card-switch.tsx';
-import Card from '@/components/ui/card.tsx';
+import { Card, CardDescription, CardHeader } from '@/components/ui/card.tsx';
 import { useSettings } from '@/hooks/useSettings.tsx';
 import { MESSAGE_TYPES } from '@/lib/types.ts';
 import SafeImage from '@/components/ui/safe-image.tsx';
@@ -82,11 +82,13 @@ export default function SidePanel() {
             />
 
             <Card>
-              <p className="ext-text-xs">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                and scrambled it to make a type specimen book. It has survived not only five centuries.
-              </p>
+              <CardHeader>
+                <CardDescription>
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                  industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                  and scrambled it to make a type specimen book. It has survived not only five centuries.
+                </CardDescription>
+              </CardHeader>
             </Card>
           </div>
 
