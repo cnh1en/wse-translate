@@ -1,6 +1,6 @@
 import iconDark from '@/assets/images/icon-dark.png';
 import iconLight from '@/assets/images/icon-light.png';
-import Card from '@/components/ui/card.tsx';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card.tsx';
 import { Command, CommandItem, CommandList, CommandSeparator } from '@/components/ui/command.tsx';
 import SafeImage from '@/components/ui/safe-image.tsx';
 import { useSettings } from '@/hooks/useSettings.tsx';
@@ -83,7 +83,11 @@ export default function Options() {
                 {currentMenu === 'General' && (
                   <>
                     <Card>
-                      Hello, <span className="ext-font-bold">Joe Doe</span>
+                      <CardHeader>
+                        <CardTitle>
+                          Hello, <span className="ext-font-bold">Joe Doe</span>
+                        </CardTitle>
+                      </CardHeader>
                     </Card>
                   </>
                 )}
@@ -123,11 +127,11 @@ export default function Options() {
                 )}
 
                 {currentMenu === 'Contact' && (
-                  <>
-                    <Card title="Contact Us">
-                      <p className="ext-text-xs ext-pt-4">Contact us on</p>
-                    </Card>
-                  </>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Contact Us</CardTitle>
+                    </CardHeader>
+                  </Card>
                 )}
               </div>
             </div>
