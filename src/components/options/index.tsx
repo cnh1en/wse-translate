@@ -1,13 +1,12 @@
-import iconDark from '@/assets/images/icon-dark.png';
-import iconLight from '@/assets/images/icon-light.png';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card.tsx';
 import { Command, CommandItem, CommandList, CommandSeparator } from '@/components/ui/command.tsx';
-import SafeImage from '@/components/ui/safe-image.tsx';
 import { useSettings } from '@/hooks/useSettings.tsx';
 import { MessageCircleMore, Palette, Settings } from 'lucide-react';
 import { useState } from 'react';
-import ColorSetting from './components/color-setting';
-import SliderSetting from './components/slider-setting';
+import ColorSetting from '../ui/components/color-setting';
+import Footer from '../ui/components/footer';
+import Header from '../ui/components/header';
+import SliderSetting from '../ui/components/slider-setting';
 
 type MenuItemTypes = 'General' | 'Appearance' | 'Contact';
 
@@ -46,15 +45,8 @@ export default function Options() {
       <div className="ext-flex ext-w-[896px] ext-h-full ext-m-auto">
         <div className="ext-w-full ext-flex ext-flex-col ext-px-2">
           {/* HEADER */}
-          <div className="ext-flex ext-flex-row ext-justify-between ext-py-7">
-            <div className="ext-flex ext-flex-row ext-items-center">
-              <SafeImage className="ext-pl-3" width={45} src={settings.theme === 'dark' ? iconLight : iconDark} />
-              <p
-                className={`ext-text-center ext-text-2xl ext-ml-2 ext-font-black ${settings.theme === 'dark' ? 'ext-text-white' : 'ext-text-black'}`}
-              >
-                DreamSub Translator
-              </p>
-            </div>
+          <div className="ext-m-8">
+            <Header theme={settings.theme} />
           </div>
 
           {/* CONTENT */}
@@ -138,9 +130,8 @@ export default function Options() {
           </div>
 
           {/* FOOTER */}
-          <div className="ext-flex ext-flex-col ext-justify-center ext-w-full ext-items-center ext-pt-4 ext-pb-14">
-            <p className="ext-text-xs">Made with ❤️ by DreamDev</p>
-            <p className="ext-text-xs">Version {chrome?.runtime?.getManifest().version || '0.0.0.1'}</p>
+          <div className="ext-m-4">
+            <Footer />
           </div>
         </div>
       </div>

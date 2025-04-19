@@ -1,6 +1,6 @@
 import { useSettings } from '@/hooks/useSettings';
-import Footer from './components/footer';
-import Header from './components/header';
+import Footer from '../ui/components/footer';
+import Header from '../ui/components/header';
 import './popup.css';
 import SignIn from './sign-in';
 
