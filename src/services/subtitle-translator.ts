@@ -21,6 +21,13 @@ class SubtitleTranslator {
     this.stopObserving();
     const translatedText = await this.translateText(caption);
     console.log('translatedText', translatedText);
+    if (translatedText) {
+      const displayTranslate = document.querySelector('.wse-display-translate');
+      console.log('displayTranslate', displayTranslate);
+      if (displayTranslate) {
+        displayTranslate.textContent = translatedText;
+      }
+    }
     this.startObserving();
   }
 
