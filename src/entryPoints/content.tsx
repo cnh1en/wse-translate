@@ -70,11 +70,13 @@ export default function Content() {
   const { settings } = useSettings();
 
   useEffect(() => {
-    const translator = new SubtitleTranslator(settings);
-    translator.startObserving();
+    const timeout = setTimeout(() => {
+      const translator = new SubtitleTranslator(settings, settings.targetLanguage);
+      translator.startObserving();
+    }, 2000);
 
     return () => {
-      translator.stopObserving();
+      clearTimeout(timeout);
     };
   }, [settings]);
 
