@@ -18,6 +18,11 @@ const getVideoPlayer = (): HTMLElement | null => document.querySelector(SELECTOR
 const getCaptionsDisplay = (): HTMLElement | null => document.querySelector(SELECTORS.CAPTIONS_DISPLAY) as HTMLElement;
 
 const createTranslateArea = (): HTMLElement => {
+  const existingTranslateArea = document.querySelector(`.${CLASSES.TRANSLATE_AREA}`);
+  if (existingTranslateArea) {
+    return existingTranslateArea as HTMLElement;
+  }
+
   const area = document.createElement('div');
   area.classList.add(CLASSES.TRANSLATE_AREA);
 
