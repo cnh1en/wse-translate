@@ -83,6 +83,15 @@ const Setting = () => {
           onColorChange={handleDisplaySettingChange}
         />
       </div>
+
+      <div className="ext-flex ext-flex-col ext-gap-1">
+        <ColorSetting
+          label="Background color"
+          color={settings.backgroundColor}
+          name="backgroundColor"
+          onColorChange={handleDisplaySettingChange}
+        />
+      </div>
     </div>
   );
 };
