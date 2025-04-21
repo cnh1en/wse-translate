@@ -73,7 +73,7 @@ export default function Content() {
     const timeout = setTimeout(() => {
       const translator = new SubtitleTranslator(settings, settings.targetLanguage);
       translator.startObserving();
-    }, 2000);
+    }, 1200);
 
     return () => {
       clearTimeout(timeout);
