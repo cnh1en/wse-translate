@@ -3,13 +3,11 @@ import { GeneralSettings } from '@/lib/types';
 
 class SubtitleTranslator {
   private observer: MutationObserver;
-  private targetLanguage: string;
   private previousCaption: string = '';
   private settings: GeneralSettings;
 
-  constructor(settings: GeneralSettings, targetLanguage: string = 'vi') {
+  constructor(settings: GeneralSettings) {
     this.settings = settings;
-    this.targetLanguage = targetLanguage;
     this.beautifyDisplayTranslateElement();
     this.observer = new MutationObserver(this.handleSubtitleChanges.bind(this));
   }
@@ -47,7 +45,7 @@ class SubtitleTranslator {
 
   private async translateText(text: string) {
     const data = await fetch(
-      `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${this.targetLanguage}&dt=t&q=${encodeURIComponent(
+      `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${this.settings.targetLanguage}&dt=t&q=${encodeURIComponent(
         text,
       )}`,
     );
