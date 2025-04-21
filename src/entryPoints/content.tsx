@@ -64,16 +64,26 @@ const setupObserver = async () => {
   });
 };
 
+let translator: SubtitleTranslator | null = null;
+
 export default function Content() {
   const { settings } = useSettings();
 
   useEffect(() => {
-    const translator = new SubtitleTranslator(settings);
-    translator.startObserving();
+    if (!translator) {
+      translator = new SubtitleTranslator(settings);
+      translator.startObserving();
+    }
 
     return () => {
-      translator.stopObserving();
+      translator?.stopObserving();
     };
+  }, []);
+
+  useEffect(() => {
+    if (translator) {
+      translator.setSettings(settings);
+    }
   }, [settings]);
 
   return <></>;

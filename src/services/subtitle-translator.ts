@@ -4,12 +4,16 @@ import { GeneralSettings } from '@/lib/types';
 class SubtitleTranslator {
   private observer: MutationObserver;
   private previousCaption: string = '';
-  private settings: GeneralSettings;
+  private settings!: GeneralSettings;
 
   constructor(settings: GeneralSettings) {
+    this.setSettings(settings);
+    this.observer = new MutationObserver(this.handleSubtitleChanges.bind(this));
+  }
+
+  public setSettings(settings: GeneralSettings) {
     this.settings = settings;
     this.beautifyDisplayTranslateElement();
-    this.observer = new MutationObserver(this.handleSubtitleChanges.bind(this));
   }
 
   public beautifyDisplayTranslateElement() {
