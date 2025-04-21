@@ -56,7 +56,7 @@ const Setting = () => {
           label="Font Size"
           value={settings.fontSize}
           min={10}
-          max={30}
+          max={40}
           step={1}
           name="fontSize"
           onChange={handleDisplaySettingChange}
