@@ -2,6 +2,7 @@ import SubtitleTranslator from '@/services/subtitle-translator';
 import { useEffect } from 'react';
 import renderRoot from './render/render-root';
 import './main.css';
+import { useSettings } from '@/hooks/useSettings';
 
 const SELECTORS = {
   VIDEO_PLAYER: "div[class^='video-player--mock-']",
@@ -66,14 +67,16 @@ const setupObserver = (): Promise<HTMLElement> => {
 };
 
 export default function Content() {
+  const { settings } = useSettings();
+
   useEffect(() => {
-    const translator = new SubtitleTranslator();
+    const translator = new SubtitleTranslator(settings);
     translator.startObserving();
 
     return () => {
       translator.stopObserving();
     };
-  }, []);
+  }, [settings]);
 
   return <></>;
 }

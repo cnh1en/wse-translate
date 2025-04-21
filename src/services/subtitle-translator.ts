@@ -1,9 +1,13 @@
+import { GeneralSettings } from '@/lib/types';
+
 class SubtitleTranslator {
   private observer: MutationObserver;
   private targetLanguage: string;
   private previousCaption: string = '';
+  private settings: GeneralSettings;
 
-  constructor(targetLanguage: string = 'vi') {
+  constructor(settings: GeneralSettings, targetLanguage: string = 'vi') {
+    this.settings = settings;
     this.targetLanguage = targetLanguage;
     this.observer = new MutationObserver(this.handleSubtitleChanges.bind(this));
   }
@@ -20,12 +24,14 @@ class SubtitleTranslator {
 
     this.stopObserving();
     const translatedText = await this.translateText(caption);
-    console.log('translatedText', translatedText);
     if (translatedText) {
-      const displayTranslate = document.querySelector('.wse-display-translate');
-      console.log('displayTranslate', displayTranslate);
-      if (displayTranslate) {
-        displayTranslate.textContent = translatedText;
+      const displayTranslateElement = document.querySelector('.wse-display-translate') as HTMLElement;
+      if (displayTranslateElement) {
+        displayTranslateElement.textContent = translatedText;
+        displayTranslateElement.style.color = this.settings.fontColor;
+        displayTranslateElement.style.backgroundColor = this.settings.backgroundColor;
+        displayTranslateElement.style.opacity = `${this.settings.opacity / 100}`;
+        displayTranslateElement.style.fontSize = `${this.settings.fontSize}px`;
       }
     }
     this.startObserving();
