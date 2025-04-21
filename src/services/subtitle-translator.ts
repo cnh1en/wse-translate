@@ -21,8 +21,22 @@ class SubtitleTranslator {
     if (displayTranslateElement) {
       displayTranslateElement.style.fontSize = `${this.settings.fontSize}px`;
       displayTranslateElement.style.color = this.settings.fontColor;
-      displayTranslateElement.style.backgroundColor = this.settings.backgroundColor;
-      displayTranslateElement.style.opacity = `${this.settings.opacity / 100}`;
+
+      // Apply opacity only to background color
+      const bgColor = this.settings.backgroundColor;
+      const opacity = this.settings.opacity / 100;
+
+      // Convert hex to rgba to apply opacity
+      if (bgColor.startsWith('#')) {
+        const r = parseInt(bgColor.slice(1, 3), 16);
+        const g = parseInt(bgColor.slice(3, 5), 16);
+        const b = parseInt(bgColor.slice(5, 7), 16);
+        displayTranslateElement.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${opacity})`;
+      } else {
+        // Fallback for non-hex colors
+        displayTranslateElement.style.backgroundColor = bgColor;
+        displayTranslateElement.style.opacity = `${opacity}`;
+      }
     }
   }
 
