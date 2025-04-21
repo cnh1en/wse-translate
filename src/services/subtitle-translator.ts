@@ -1,3 +1,4 @@
+import { WSE_DISPLAY_TRANSLATE_CLASSNAME } from '@/entryPoints/content';
 import { GeneralSettings } from '@/lib/types';
 
 class SubtitleTranslator {
@@ -9,7 +10,18 @@ class SubtitleTranslator {
   constructor(settings: GeneralSettings, targetLanguage: string = 'vi') {
     this.settings = settings;
     this.targetLanguage = targetLanguage;
+    this.beautifyDisplayTranslateElement();
     this.observer = new MutationObserver(this.handleSubtitleChanges.bind(this));
+  }
+
+  public beautifyDisplayTranslateElement() {
+    const displayTranslateElement = document.querySelector(`.${WSE_DISPLAY_TRANSLATE_CLASSNAME}`) as HTMLElement;
+    if (displayTranslateElement) {
+      displayTranslateElement.style.fontSize = `${this.settings.fontSize}px`;
+      displayTranslateElement.style.color = this.settings.fontColor;
+      displayTranslateElement.style.backgroundColor = this.settings.backgroundColor;
+      displayTranslateElement.style.opacity = `${this.settings.opacity / 100}`;
+    }
   }
 
   private async handleSubtitleChanges() {
@@ -25,13 +37,9 @@ class SubtitleTranslator {
     this.stopObserving();
     const translatedText = await this.translateText(caption);
     if (translatedText) {
-      const displayTranslateElement = document.querySelector('.wse-display-translate') as HTMLElement;
+      const displayTranslateElement = document.querySelector(`.${WSE_DISPLAY_TRANSLATE_CLASSNAME}`) as HTMLElement;
       if (displayTranslateElement) {
         displayTranslateElement.textContent = translatedText;
-        displayTranslateElement.style.color = this.settings.fontColor;
-        displayTranslateElement.style.backgroundColor = this.settings.backgroundColor;
-        displayTranslateElement.style.opacity = `${this.settings.opacity / 100}`;
-        displayTranslateElement.style.fontSize = `${this.settings.fontSize}px`;
       }
     }
     this.startObserving();

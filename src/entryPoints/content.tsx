@@ -1,44 +1,42 @@
+import { useSettings } from '@/hooks/useSettings';
 import SubtitleTranslator from '@/services/subtitle-translator';
 import { useEffect } from 'react';
-import renderRoot from './render/render-root';
 import './main.css';
-import { useSettings } from '@/hooks/useSettings';
+import renderRoot from './render/render-root';
 
 const SELECTORS = {
   VIDEO_PLAYER: "div[class^='video-player--mock-']",
   CAPTIONS_DISPLAY: "div[class^='captions-display--captions-container--']",
 } as const;
 
-const CLASSES = {
-  TRANSLATE_AREA: 'wse-translate-area',
-  DISPLAY_TRANSLATE: 'wse-display-translate',
-} as const;
+const WSE_TRANSLATE_AREA_CLASSNAME = 'wse-translate-area' as const;
+export const WSE_DISPLAY_TRANSLATE_CLASSNAME = 'wse-display-translate' as const;
 
 const getVideoPlayer = (): HTMLElement | null => document.querySelector(SELECTORS.VIDEO_PLAYER) as HTMLElement;
 
 const getCaptionsDisplay = (): HTMLElement | null => document.querySelector(SELECTORS.CAPTIONS_DISPLAY) as HTMLElement;
 
 const createTranslateArea = (): HTMLElement => {
-  const existingTranslateArea = document.querySelector(`.${CLASSES.TRANSLATE_AREA}`);
+  const existingTranslateArea = document.querySelector(`.${WSE_TRANSLATE_AREA_CLASSNAME}`);
   if (existingTranslateArea) {
     return existingTranslateArea as HTMLElement;
   }
 
   const area = document.createElement('div');
-  area.classList.add(CLASSES.TRANSLATE_AREA);
+  area.classList.add(WSE_TRANSLATE_AREA_CLASSNAME);
 
   const displayTranslate = document.createElement('div');
-  displayTranslate.classList.add(CLASSES.DISPLAY_TRANSLATE);
+  displayTranslate.classList.add(WSE_DISPLAY_TRANSLATE_CLASSNAME);
 
   area.appendChild(displayTranslate);
   return area;
 };
 
-const setupObserver = (): Promise<HTMLElement> => {
+const setupObserver = async () => {
   return new Promise<HTMLElement>((resolve) => {
     let isCaptionsHidden = false;
 
-    const handleMutation = (_mutations: MutationRecord[], observer: MutationObserver) => {
+    const handleMutation = async (_mutations: MutationRecord[], observer: MutationObserver) => {
       const videoPlayer = getVideoPlayer();
       const captionsDisplay = getCaptionsDisplay();
 
@@ -70,13 +68,11 @@ export default function Content() {
   const { settings } = useSettings();
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      const translator = new SubtitleTranslator(settings, settings.targetLanguage);
-      translator.startObserving();
-    }, 1200);
+    const translator = new SubtitleTranslator(settings);
+    translator.startObserving();
 
     return () => {
-      clearTimeout(timeout);
+      translator.stopObserving();
     };
   }, [settings]);
 

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
 import { GENERAL_SETTINGS_KEY, GeneralSettings, MESSAGE_TYPES, Theme } from '@/lib/types.ts';
 import { ROOT_CONTAINER_ID } from '@/lib/constants.ts';
 import useMessage from '@/hooks/useMessage.tsx';
@@ -52,6 +52,7 @@ export function SettingsProvider({
     ...initialSettingsState.settings,
     ...(defaultTheme && { theme: defaultTheme }),
   });
+  const timeoutRef = useRef<NodeJS.Timeout>();
 
   // Read persisted settings from chrome.storage
   useEffect(() => {
@@ -92,10 +93,19 @@ export function SettingsProvider({
     settings,
     setSettings: (updatedSettings: Partial<GeneralSettings>) => {
       const newSettings = { ...settings, ...updatedSettings };
+      // Update UI immediately
       setSettings(newSettings);
-      chrome?.storage?.sync
-        .set({ [GENERAL_SETTINGS_KEY]: newSettings })
-        .then(() => console.log('[useSettings.js] UPDATE_GENERAL_SETTINGS'));
+
+      // Debounce storage update
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      timeoutRef.current = setTimeout(() => {
+        chrome?.storage?.sync
+          .set({ [GENERAL_SETTINGS_KEY]: newSettings })
+          .then(() => console.log('[useSettings.js] UPDATE_GENERAL_SETTINGS'));
+      }, 500);
     },
   };
 
